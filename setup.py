@@ -5,9 +5,10 @@ setup(
     version='0.1',
     packages=find_packages(),
     install_requires=[
-        'pandas',
         'gspread',
+        'numpy',
         'oauth2client',
+        'pandas',
         'yfinance'
     ],
     description='A library for processing financial data and interacting with Google Sheets.',
