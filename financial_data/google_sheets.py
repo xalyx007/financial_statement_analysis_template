@@ -28,6 +28,10 @@ def dump_to_sheet(df, column_range, target_rows, sheet):
     :param target_rows: List of target row numbers in the spreadsheet (1-based).
     :param sheet: The gspread sheet object where the data will be written.
     """
+
+    # Replace NaN with empty strings and Inf with a large number or other representation
+    df = df.fillna('')  # or df.fillna(0) for zeros
+    df = df.replace([np.inf, -np.inf], '')
     
     # Iterate over the extracted data and write it to the specified target rows in the sheet
     for idx, (index, row) in enumerate(df.iterrows()):
