@@ -4,3 +4,5 @@ from .data_processing import read_balance_sheet
 
 from .google_sheets import authenticate_google_sheets
 from .google_sheets import dump_to_sheet
+
+from .utils import count_columns_and_extract_years
