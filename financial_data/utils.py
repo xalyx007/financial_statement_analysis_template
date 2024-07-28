@@ -1,3 +1,5 @@
+import pandas as pd
+
 def count_columns_and_extract_years(df):
   """
   Counts the number of columns in a DataFrame and extracts the year from date columns.
