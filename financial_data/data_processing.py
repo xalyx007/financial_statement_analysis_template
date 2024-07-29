@@ -104,13 +104,7 @@ def read_cashflow(tikr):
     # Fill the zero-filled DataFrame with valid rows
     df1_zero_filled.loc[valid_rows_df1.index] = valid_rows_df1.astype(float)
     
-    # Filter out rows that are in the DataFrame
-    valid_rows_df1 = [row for row in rows_df1 if row in df1.index]
-    
-    # Select the relevant rows
-    df1_rows = df1.loc[valid_rows_df1]
-    
-    return df1_rows
+    return df1_zero_filled
 
 
 def read_balance_sheet(tikr):
@@ -148,18 +142,12 @@ def read_balance_sheet(tikr):
     # Fill the zero-filled DataFrame with valid rows
     df1_zero_filled.loc[valid_rows_df1.index] = valid_rows_df1.astype(float)
     
-    # Filter out rows that are in the DataFrame
-    valid_rows_df1 = [row for row in rows_df1 if row in df1.index]
-    
-    # Select the relevant rows
-    df1_rows = df1.loc[valid_rows_df1]
-    
     # Compute 'Financial Debt'
-    if 'Current Debt' in df1_rows.index and 'Long Term Debt' in df1_rows.index:
-        df1_rows.loc['Financial Debt'] = df1_rows.loc['Current Debt'] + df1_rows.loc['Long Term Debt']
+    if 'Current Debt' in df1_zero_filled.index and 'Long Term Debt' in df1_zero_filled.index:
+        df1_zero_filled.loc['Financial Debt'] = df1_zero_filled.loc['Current Debt'] + df1_zero_filled.loc['Long Term Debt']
     else:
-        df1_rows.loc['Financial Debt'] = pd.NA  # Or handle the missing data in another appropriate way
+        df1_zero_filled.loc['Financial Debt'] = pd.NA  # Or handle the missing data in another appropriate way
     
-    return df1_rows.loc[['Cash And Cash Equivalents', 'Financial Debt', 
-                         'Capital Lease Obligations', 'Goodwill', 'Common Stock Equity', 'Total Debt']]
+    return df1_zero_filled.loc[['Cash And Cash Equivalents', 'Financial Debt', 
+                                'Capital Lease Obligations', 'Goodwill', 'Common Stock Equity', 'Total Debt']]
 
